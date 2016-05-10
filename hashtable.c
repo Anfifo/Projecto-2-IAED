@@ -54,8 +54,6 @@ Item search_hash_table(Hash_Table HT, Item item)
 }
 
 
-
-static 
 void expand_hash_table(Hash_Table HT)
 {
 	int i;
@@ -84,6 +82,11 @@ Item* hash_table_to_vector(Hash_Table HT)
 		if (!IS_ITEM_NULL(HT->table[i]))
 			vector[j++] = HT->table[i];
 	return vector;
+}
+
+int hash_table_item_count(Hash_Table HT)
+{
+	return(HT->count);
 }
 
 

@@ -6,13 +6,9 @@
 #include <string.h>
 
 
-typedef stuct {
+typedef struct hashtag{
 	char* tag;
 	int count;
-}
-typedef struct testItem{
-	char* random;
-	int chair;
 }*Item;
 
 
@@ -21,13 +17,14 @@ typedef struct testItem{
 #define IS_ITEM_NULL(A) (A == NULLITEM)
 #define EQUAL_ITEM(A,B) (KEY(A) == KEY(B))
 
-Item* Vector_Elementos;
-Item Most_Popular_Item;
+extern Item* Vector_Elementos;
+extern Item Most_Popular_Item;
 
 Item create_item(char*);
 void print_item(Item);
 void print_item_vector(Item* vector, int size);
 int compare_items(Item, Item);
-
+void increment_item_counter(Item);
+void delete_item(Item);
 
 #endif

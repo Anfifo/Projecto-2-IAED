@@ -9,11 +9,7 @@
 
 typedef char* Key;
 
-Key item_to_key(Item item)
-{
-	return item->random;
-} 
-
+Key item_to_key(Item item);
 
 /* djb2
  * an algorithm that was recommend
@@ -21,17 +17,6 @@ Key item_to_key(Item item)
  * this algorithm (k=33) was first reported by 
  * dan bernstein many years ago in comp.lang.c. */
 
-unsigned long string_hash(char *str, int size)
-{
-	unsigned long hash = 5381;
-	int c;
-
-	while ((c = *str++))
-	    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */ 
-
-	printf("%lu\n", (hash%size));
-	return hash%size;
-}
-
+unsigned long string_hash(char *str, int size);
 
 #endif

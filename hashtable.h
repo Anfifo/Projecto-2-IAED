@@ -21,8 +21,9 @@ typedef struct HASHTABLE{
 Hash_Table init_hash_table(int table_size);
 void insert_hash_table(Hash_Table HT, Item item);
 Item search_hash_table(Hash_Table HT, Item item);
-static void expand_hash_table(Hash_Table HT);
+void expand_hash_table(Hash_Table HT);
 Item* hash_table_to_vector(Hash_Table HT);
+int hash_table_item_count(Hash_Table HT);
 
 
 #endif

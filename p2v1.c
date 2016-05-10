@@ -1,26 +1,38 @@
 #include <stdio.h>
+#include "hashtable.h"
+#include "item.h"
 
 #define MAXSIZE (140 + 1)
 #define NUMSEP 11
 static const char separators[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'};
 
-Hash_Table HT = init_hash_table(128);
+Hash_Table HT;
 static int total_hashtag_count = 0;
 
+void command_a(char*);
+void command_s();
+void command_m();
+void command_l();
+void command_x();
+void lowercase_transformer(char*);
+void split(char*);
+void process_hashtag(char*);
+void command_x();
 
 int main()
 {
+	HT = init_hash_table(128);
 	char command;
-	char *line;
+	char *line = NULL;
 
-	while (command = getchar())
+	while ((command = getchar()))
 	{
-		fgets(line, MAXSIZE, stdio);
+		fgets(line, MAXSIZE, stdin);
 		switch (command)
 		{
 			case 'a':
 
-				command_a();
+				command_a(line);
 				break;
 
 			case 's':
@@ -41,15 +53,17 @@ int main()
 			case 'x':
 
 				command_x();
-				break;
+				return 0;
 
-				return;
 
 			default:
 				printf("test\n");
 
+			
+
 		}
 	}
+	return 0;
 }
 
 
@@ -62,7 +76,7 @@ void command_a(char *line)
 
 void command_s()
 {
-	printf("%d %d", hash_table_size(HT), total_hashtag_count);
+	printf("%d %d", hash_table_item_count(HT), total_hashtag_count);
 }
 
 void command_m() 
@@ -74,7 +88,12 @@ void command_l()
 {
 	Item* item_vector;
 	item_vector = hash_table_to_vector(HT);
-	qsort();
+	/*qsort();*/
+}
+
+void command_x()
+{
+	printf("fuck you, fkin characters fucking shit\n");
 }
 
 
@@ -101,9 +120,9 @@ void split(char *line)
 
 }
 
-process_hashtag(char *token)
+void process_hashtag(char *token)
 {
-	Item item;
+	Item item, test;
 	if (token[0] == '#')
 	{
 		total_hashtag_count++;
