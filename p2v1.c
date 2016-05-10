@@ -4,7 +4,9 @@
 #define NUMSEP 11
 static const char separators[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'};
 
-Hash_Table HT = init_hash_table(100);
+Hash_Table HT = init_hash_table(128);
+static int total_hashtag_count = 0;
+
 
 int main()
 {
@@ -60,7 +62,19 @@ void command_a(char *line)
 
 void command_s()
 {
-	
+	printf("%d %d", hash_table_size(HT), total_hashtag_count);
+}
+
+void command_m() 
+{
+	print_item(Most_Popular_Item);
+}
+
+void command_l()
+{
+	Item* item_vector;
+	item_vector = hash_table_to_vector(HT);
+	qsort();
 }
 
 
@@ -73,19 +87,6 @@ void lowercase_transformer(char *line)
 			line[i] -= ('A'-'a');
 }
 
-/*
-void find_hashtag(char *line)
-{
-	int i;
-
-	for (i = 1; line[i] != '\0'; i++)
-	{
-		if (line[i-1] == ' ' && line[i] == '#')
-
-
-	}
-}
-*/
 
 void split(char *line)
 {
@@ -105,6 +106,8 @@ process_hashtag(char *token)
 	Item item;
 	if (token[0] == '#')
 	{
+		total_hashtag_count++;
+
 		item = create_item(token);
 		test = search_hash_table(HT, item);
 
@@ -118,3 +121,17 @@ process_hashtag(char *token)
 
 
 
+
+
+
+
+/*
+void find_hashtag(char *line)
+{
+	int i;
+	for (i = 1; line[i] != '\0'; i++)
+	{
+		if (line[i-1] == ' ' && line[i] == '#')
+	}
+}
+*/
