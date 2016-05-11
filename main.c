@@ -58,7 +58,7 @@ int main()
 
 
 			default:
-				printf("test\n");
+				printf("default\n");
 		}
 	}
 	return 0;
