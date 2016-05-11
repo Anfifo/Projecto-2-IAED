@@ -1,6 +1,8 @@
 #include "item.h"
 
+
 Item* Vector_Elementos;
+
 Item Most_Popular_Item = NULLITEM;
 
 Item create_item(char* line)
@@ -32,7 +34,7 @@ void print_item_vector(Item* vector, int size)
 
 	for(i = 0; i < size; i++)
 	{
-		printf("%s %d\n", vector[i]->tag, vector[i]->count);
+		print_item(vector[i]);
 	}
 }
 
@@ -51,33 +53,29 @@ int compare_items(Item item1, Item item2)
 }
 
 
-
-
-int alph_sort_compare_item(const void* item1, const void* item2)
+int compare_item_count(const Item item1, const Item item2)
 {
-	Item new_item_1 = (Item) item1;
-	Item new_item_2 = (Item) item2;
+	return item1->count - item2->count;
+}
 
-	return compare_items(new_item_1, new_item_2);
-} 
 
-int count_sort_compare_item(const void* item1, const void* item2)
+int sorting_compare_items(const void* v_item1, const void* v_item2)
 {
-	Item new_item_1 = (Item) item1;
-	Item new_item_2 = (Item) item2;
-	return (new_item_1->count - new_item_2->count);
+	Item item1 = *(Item*) v_item1;
+	Item item2 = *(Item*) v_item2;
+
+	int dif = compare_item_count(item1, item2);
+
+	if (!dif)
+		return compare_items(item1, item2);
+	
+	return dif;
 }
 
 
 void sort_item_vector(Item* item_vector, int item_count)
 {
-	print_item_vector(item_vector, item_count);
-//	puts("--------");
-//	qsort(item_vector, item_count, sizeof(Item), alph_sort_compare_item);
-//	puts("--------");
-//	print_item_vector(item_vector, item_count);
-//	puts("--------");
-//	qsort(item_vector, item_count, sizeof(Item), count_sort_compare_item);
+	qsort((void*)item_vector, item_count, sizeof(Item), sorting_compare_items);
 }
 
 
@@ -89,11 +87,11 @@ void update_most_popular_item(Item item)
 		return;
 	}
 
-	if (item->count == Most_Popular_Item->count)
+	if (compare_item_count(item, Most_Popular_Item) == 0)
 		if (compare_items(item, Most_Popular_Item) > 0)
 			Most_Popular_Item = item;
 
-	if(item->count > Most_Popular_Item->count)
+	if(compare_item_count(item, Most_Popular_Item) > 0)
 		Most_Popular_Item = item;
 }
 
@@ -103,4 +101,10 @@ void delete_item(Item item)
 	free(item->tag);
 	free(item);
 }
+
+
+
+
+
+
 

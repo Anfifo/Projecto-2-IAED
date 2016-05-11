@@ -26,8 +26,9 @@ void print_item_vector(Item* vector, int size);
 int compare_items(Item, Item);
 void increment_item_counter(Item);
 void delete_item(Item);
-int alph_sort_compare_item(const void*, const void*);
-int count_sort_compare_item(const void*, const void*);
+int sorting_compare_items(const void*, const void*);
+void sort_item_vector(Item*, int);
 void update_most_popular_item(Item);
+
 
 #endif
