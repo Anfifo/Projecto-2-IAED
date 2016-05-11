@@ -46,6 +46,7 @@ int compare_items(Item item1, Item item2)
 
 void increment_item_counter(Item item)
 {
+	puts("\tincrementing...");
 	item->count++;
 
 	if (item->count > Most_Popular_Item->count)
@@ -53,6 +54,18 @@ void increment_item_counter(Item item)
 
 }
 
+int sort_compare_item(const void* item1, const void* item2)
+{
+	Item new_item_1 = (Item) item1;
+	Item new_item_2 = (Item) item2;
+	return compare_items(new_item_1, new_item_2);
+} 
+
+void sort_item_vector(Item* item_vector, int item_count)
+{
+	qsort(item_vector, item_count, sizeof(Item), sort_compare_item);
+
+}
 
 void delete_item(Item item)
 {

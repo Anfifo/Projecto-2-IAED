@@ -94,24 +94,3 @@ int hash_table_item_count(Hash_Table HT)
 	return(HT->count);
 }
 
-
-/*
-
-for tests
-
-int main(int argc, char const *argv[])
-{
-	Hash_Table ash_ketchum = init_hash_table (10);
-	Item a = create_item("rock");
-	Item b = create_item("paper");
-	Item c = create_item("scisors");
-	insert_hash_table(ash_ketchum, a);
-	insert_hash_table(ash_ketchum, b);
-	insert_hash_table(ash_ketchum, c);
-	printf("count: %d, size: %d\n", ash_ketchum->count, ash_ketchum->size);
-
-	print_item_vector(hash_table_to_vector(ash_ketchum), ash_ketchum->count);
-
-	return 0;
-}
-*/
