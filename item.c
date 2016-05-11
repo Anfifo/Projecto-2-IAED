@@ -7,8 +7,8 @@ Item create_item(char* line)
 {
 	int size = strlen(line);
 
-	Item item = (Item) malloc (sizeof(struct hashtag));
-	item->tag = (char*) malloc (sizeof(char) * size);
+	Item item = (Item) malloc(sizeof(struct hashtag));
+	item->tag = (char*) malloc(sizeof(char) * size);
 
 	strcpy(item->tag, line);
 
@@ -20,10 +20,12 @@ Item create_item(char* line)
 	return item;
 }
 
+
 void print_item(Item item)
 {
 	printf("%s %d\n", item->tag, item->count);
 }
+
 
 void print_item_vector(Item* vector, int size)
 {
@@ -35,10 +37,12 @@ void print_item_vector(Item* vector, int size)
 	}
 }
 
+
 int compare_items(Item item1, Item item2)
 {
 	return strcmp(item1->tag, item2->tag);
 }
+
 
 void increment_item_counter(Item item)
 {
@@ -48,6 +52,7 @@ void increment_item_counter(Item item)
 		Most_Popular_Item = item;
 
 }
+
 
 void delete_item(Item item)
 {

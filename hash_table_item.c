@@ -19,6 +19,5 @@ unsigned long string_hash(char *str, int size)
 	while ((c = *str++))
 	    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */ 
 
-	printf("%lu\n", (hash%size));
 	return hash%size;
 }

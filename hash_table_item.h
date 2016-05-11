@@ -4,7 +4,7 @@
 #include "item.h"
 
 /* to change the input of the hash table, simply change this file */ 
-#define KEY(A) item_to_key(A)
+#define KEY(A) (item_to_key(A))
 #define HASH(A,B) (string_hash(A,B))
 
 typedef char* Key;

@@ -10,15 +10,18 @@ Hash_Table init_hash_table(int table_size)
 	HT->table = (Item *) malloc(sizeof(Item) * HT->size);
 
 	for (i = 0; i < HT->size; i++)
-		(HT->table)[i] = NULLITEM;
+		HT->table[i] = NULLITEM;
 
 	return HT;
 }
 
 
 void insert_hash_table(Hash_Table HT, Item item)
-{
+{	
+	puts("\tinserting in table...");
 	int i = 0;
+	print_item(item);
+
 	int index = HASH(KEY(item), HT->size);
 	int position = index;
 	HT->count ++;
@@ -29,6 +32,7 @@ void insert_hash_table(Hash_Table HT, Item item)
 	while (!(IS_ITEM_NULL(HT->table[i])))
 	{
 		i++;
+		printf("%d\n", i);
 		position = (index+TABLE_JUMP(i))%HT->size;
 	}
 
@@ -38,13 +42,14 @@ void insert_hash_table(Hash_Table HT, Item item)
 
 Item search_hash_table(Hash_Table HT, Item item)
 {
+	puts("\tsearching in table...");
 	int i = 0;
 	int index = HASH(KEY(item), HT->size);
 	int position = index;
 	
 	while (!IS_ITEM_NULL(HT->table[position]))
 	{
-		if (IS_ITEM_NULL(HT->table[position]))
+		if (EQUAL_ITEM(HT->table[position], item))
 			return HT->table[position];
 
 		i++;

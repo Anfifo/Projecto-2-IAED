@@ -15,7 +15,7 @@ typedef struct hashtag{
 
 #define NULLITEM NULL 
 #define IS_ITEM_NULL(A) (A == NULLITEM)
-#define EQUAL_ITEM(A,B) (KEY(A) == KEY(B))
+#define EQUAL_ITEM(A,B) (compare_items(A,B)==0)
 
 extern Item* Vector_Elementos;
 extern Item Most_Popular_Item;
