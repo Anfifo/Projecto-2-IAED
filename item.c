@@ -1,9 +1,7 @@
 #include "item.h"
 
 
-Item* Vector_Elementos;
-
-Item Most_Popular_Item = NULLITEM;
+static Item Most_Popular_Item = NULLITEM;
 
 Item create_item(char* line)
 {
@@ -33,15 +31,12 @@ void print_item_vector(Item* vector, int size)
 	int i;
 
 	for(i = 0; i < size; i++)
-	{
 		print_item(vector[i]);
-	}
 }
 
 
 void increment_item_counter(Item item)
 {
-	puts("\tincrementing...");
 	item->count++;
 	update_most_popular_item(item);
 }
@@ -64,12 +59,12 @@ int sorting_compare_items(const void* v_item1, const void* v_item2)
 	Item item1 = *(Item*) v_item1;
 	Item item2 = *(Item*) v_item2;
 
-	int dif = compare_item_count(item1, item2);
+	int diff = compare_item_count(item1, item2);
 
-	if (!dif)
+	if (!diff)
 		return compare_items(item1, item2);
 	
-	return dif;
+	return diff;
 }
 
 
@@ -78,6 +73,10 @@ void sort_item_vector(Item* item_vector, int item_count)
 	qsort((void*)item_vector, item_count, sizeof(Item), sorting_compare_items);
 }
 
+Item get_most_popular_item()
+{
+	return Most_Popular_Item;
+}
 
 void update_most_popular_item(Item item)
 {
@@ -96,12 +95,20 @@ void update_most_popular_item(Item item)
 }
 
 
-void delete_item(Item item)
+void destroy_item(Item item)
 {
 	free(item->tag);
 	free(item);
 }
 
+void destroy_item_vector(Item* vector, int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		destroy_item(vector[i]);
+
+	free(vector);
+}
 
 
 

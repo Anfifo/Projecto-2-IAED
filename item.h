@@ -17,18 +17,19 @@ typedef struct hashtag{
 #define IS_ITEM_NULL(A) (A == NULLITEM)
 #define EQUAL_ITEM(A,B) (compare_items(A,B)==0)
 
-extern Item* Vector_Elementos;
-extern Item Most_Popular_Item;
 
 Item create_item(char*);
 void print_item(Item);
-void print_item_vector(Item* vector, int size);
+void print_item_vector(Item*, int);
 int compare_items(Item, Item);
 void increment_item_counter(Item);
-void delete_item(Item);
 int sorting_compare_items(const void*, const void*);
 void sort_item_vector(Item*, int);
 void update_most_popular_item(Item);
+void destroy_item(Item);
+void destroy_item_vector(Item* vector, int size);
+Item get_most_popular_item();
+
 
 
 #endif

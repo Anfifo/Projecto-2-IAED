@@ -11,7 +11,7 @@
 #define TABLE_JUMP(A) (A*A + A)/2
 
 
-typedef struct HASHTABLE{
+typedef struct HashTable{
 	int size;
 	int count;
 	Item *table;

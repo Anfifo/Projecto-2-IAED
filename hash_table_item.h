@@ -6,13 +6,16 @@
 /* to change the input of the hash table, simply change this file */ 
 #define KEY(A) (item_to_key(A))
 #define HASH(A,B) (string_hash(A,B))
+#define HASHTABLE_EXPANSION_THRESHOLD 0.5
+#define HASHTABLE_EXPANSION_VALUE 2
+#define HASHTABLE_DESTROY_ITEM_VECTOR(A,B) destroy_item_vector(A,B)
 
 typedef char* Key;
 
 Key item_to_key(Item item);
 
 /* djb2
- * an algorithm that was recommend
+ * an algorithm that was recommended
  * to be used when hashing strings
  * this algorithm (k=33) was first reported by 
  * dan bernstein many years ago in comp.lang.c. */

@@ -3,7 +3,7 @@
 Hash_Table init_hash_table(int table_size)
 {
 	int i;
-	Hash_Table HT = (Hash_Table) malloc(sizeof(struct HASHTABLE));
+	Hash_Table HT = (Hash_Table) malloc(sizeof(struct HashTable));
 
 	HT->count = 0;
 	HT->size = 2 * table_size;
@@ -18,15 +18,13 @@ Hash_Table init_hash_table(int table_size)
 
 void insert_hash_table(Hash_Table HT, Item item)
 {	
-	puts("\tinserting in table...");
 	int i = 0;
-	print_item(item);
 
 	int index = HASH(KEY(item), HT->size);
 	int position = index;
 	HT->count ++;
 
-	if (HT->count > (HT->size/2))
+	if (HT->count > (HT->size* HASHTABLE_EXPANSION_THRESHOLD))
 		expand_hash_table(HT);
 
 	while (!(IS_ITEM_NULL(HT->table[i])))
@@ -42,7 +40,6 @@ void insert_hash_table(Hash_Table HT, Item item)
 
 Item search_hash_table(Hash_Table HT, Item item)
 {
-	puts("\tsearching in table...");
 	int i = 0;
 	int index = HASH(KEY(item), HT->size);
 	int position = index;
@@ -66,7 +63,7 @@ void expand_hash_table(Hash_Table HT)
 	int count = HT->count;
 	Item *tempTable = HT->table;
 
-	HT = init_hash_table( 2 * size);
+	HT = init_hash_table(size*HASHTABLE_EXPANSION_VALUE);
 	HT->size = size;
 	HT->count = count;
 
@@ -89,8 +86,16 @@ Item* hash_table_to_vector(Hash_Table HT)
 	return vector;
 }
 
+
 int hash_table_item_count(Hash_Table HT)
 {
 	return(HT->count);
 }
 
+
+void destroy_hash_table(Hash_Table HT)
+{
+	HASHTABLE_DESTROY_ITEM_VECTOR(hash_table_to_vector(HT),hash_table_item_count(HT));
+	free(HT->table);
+	free(HT);
+}
