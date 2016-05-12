@@ -21,13 +21,15 @@ typedef struct HashTable{
 
 void init_hash_table_table(Hash_Table HT);
 Hash_Table init_hash_table(int table_size);
+
 void insert_hash_table(Hash_Table HT, Item item);
+
 Item search_hash_table(Hash_Table HT, Item item);
-void expand_hash_table(Hash_Table HT);
-Item* hash_table_to_vector(Hash_Table HT);
 int hash_table_item_count(Hash_Table HT);
-void sort_item_vector(Item* vector, int item_count);
+
+void expand_hash_table(Hash_Table HT);
 void destroy_hash_table(Hash_Table HT);
 
+Item* hash_table_to_vector(Hash_Table HT);
 
 #endif

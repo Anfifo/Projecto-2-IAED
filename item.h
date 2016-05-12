@@ -19,17 +19,26 @@ typedef struct hashtag{
 
 
 Item create_item(char*);
-void print_item(Item);
-void print_item_vector(Item*, int);
-int compare_items(Item, Item);
+
 void increment_item_counter(Item);
-int sorting_compare_items(const void*, const void*);
-void sort_item_vector(Item*, int);
-void update_most_popular_item(Item);
-void destroy_item(Item);
-void destroy_item_vector(Item* vector, int size);
+
 Item get_most_popular_item();
 
+int compare_items(Item, Item);
+int compare_item_count(const Item, const Item);
 
+
+
+void destroy_item(Item);
+void destroy_item_vector(Item* , int);
+
+void update_most_popular_item(Item);
+
+void print_item(Item);
+void print_item_vector(Item*, int);
+
+
+int sorting_compare_items(const void*, const void*);
+void sort_item_vector(Item*, int);
 
 #endif
