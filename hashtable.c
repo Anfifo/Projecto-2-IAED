@@ -1,16 +1,23 @@
 #include "hashtable.h"
 
-Hash_Table init_hash_table(int table_size)
+
+void init_hash_table_table(Hash_Table HT)
 {
 	int i;
-	Hash_Table HT = (Hash_Table) malloc(sizeof(struct HashTable));
-
-	HT->count = 0;
-	HT->size = 2 * table_size;
 	HT->table = (Item *) malloc(sizeof(Item) * HT->size);
 
 	for (i = 0; i < HT->size; i++)
 		HT->table[i] = NULLITEM;
+}
+
+
+Hash_Table init_hash_table(int table_size)
+{
+	Hash_Table HT = (Hash_Table) malloc(sizeof(struct HashTable));
+	
+	HT->count = 0;
+	HT->size = table_size;
+	init_hash_table_table(HT);
 
 	return HT;
 }
@@ -20,12 +27,13 @@ void insert_hash_table(Hash_Table HT, Item item)
 {	
 	int i = 0;
 
+	if (HT->count > (HT->size * HASHTABLE_EXPANSION_THRESHOLD))
+		expand_hash_table(HT);
+
 	int index = HASH(KEY(item), HT->size);
 	int position = index;
 	HT->count ++;
 
-	if (HT->count > (HT->size * HASHTABLE_EXPANSION_THRESHOLD))
-		expand_hash_table(HT);
 
 	while (!(IS_ITEM_NULL(HT->table[position])))
 	{
@@ -58,18 +66,17 @@ Item search_hash_table(Hash_Table HT, Item item)
 
 void expand_hash_table(Hash_Table HT) // check later
 {
-	puts("\twuhoo expand");
 	int i;
-	int size = HT->size;
-	int count = HT->count;
+	int old_size = HT->size;
+
 	Item *tempTable = HT->table;
 
-	HT = init_hash_table(size*HASHTABLE_EXPANSION_VALUE);
-	HT->size = size;
-	HT->count = count;
+	HT->count = 0;
+	HT->size = old_size * HASHTABLE_EXPANSION_VALUE;
+	init_hash_table_table(HT);
 
-	for (i = 0; i < size; i++)
-		if (IS_ITEM_NULL(tempTable[i]))
+	for (i = 0; i < old_size; i++)
+		if (!IS_ITEM_NULL(tempTable[i]))
 			insert_hash_table(HT,tempTable[i]);
 
 	free(tempTable);

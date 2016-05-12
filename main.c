@@ -21,7 +21,7 @@ void command_x();
 
 int main()
 {
-	HT = init_hash_table(32);
+	HT = init_hash_table(64);
 	char command;
 	char line[MAXSIZE];
 
@@ -56,7 +56,7 @@ int main()
 
 
 			default:
-				printf("default\n");
+				printf("default, char read: %c\n", command);
 		}
 	}
 	return 0;

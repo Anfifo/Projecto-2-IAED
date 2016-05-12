@@ -9,6 +9,8 @@
 
 
 #define TABLE_JUMP(A) (A*A + A)/2
+#define HASHTABLE_EXPANSION_THRESHOLD 0.5
+#define HASHTABLE_EXPANSION_VALUE 2
 
 
 typedef struct HashTable{
@@ -17,7 +19,7 @@ typedef struct HashTable{
 	Item *table;
 }* Hash_Table;
 
-
+void init_hash_table_table(Hash_Table HT);
 Hash_Table init_hash_table(int table_size);
 void insert_hash_table(Hash_Table HT, Item item);
 Item search_hash_table(Hash_Table HT, Item item);
