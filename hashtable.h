@@ -27,7 +27,7 @@ void expand_hash_table(Hash_Table HT);
 Item* hash_table_to_vector(Hash_Table HT);
 int hash_table_item_count(Hash_Table HT);
 void sort_item_vector(Item* vector, int item_count);
-
+void destroy_hash_table(Hash_Table HT);
 
 
 #endif

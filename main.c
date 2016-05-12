@@ -89,10 +89,12 @@ void command_l()
 	item_vector = hash_table_to_vector(HT);
 	sort_item_vector(item_vector, item_count);
 	print_item_vector(item_vector, item_count);
+	free(item_vector);
 }
 
 void command_x()
 {
+	destroy_hash_table(HT);
 	return;
 }
 
@@ -129,13 +131,12 @@ void process_hashtag(char *token)
 		test = search_hash_table(HT, item);
 
 		if (IS_ITEM_NULL(test))
-		{
 			insert_hash_table(HT, item);
-		}
 
 		else
 		{
 			increment_item_counter(test);
+			destroy_item(item);
 		}
 		
 	}		
