@@ -3,6 +3,9 @@
 #include "item.h"
 
 #define MAXSIZE (140 + 1)
+#define HASH_TABLE_STARTING_SIZE 64 
+/* hashtable's jump works better with size being a power of 2 */
+
 #define NUMSEP 11
 static const char separators[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'};
 
@@ -21,7 +24,7 @@ void command_x();
 
 int main()
 {
-	HT = init_hash_table(64);
+	HT = init_hash_table(HASH_TABLE_STARTING_SIZE);
 	char command;
 	char line[MAXSIZE];
 
@@ -56,7 +59,7 @@ int main()
 
 
 			default:
-				printf("default, char read: %c\n", command);
+				printf("unknown command: %c\n", command);
 		}
 	}
 	return 0;

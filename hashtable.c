@@ -49,7 +49,7 @@ void insert_hash_table(Hash_Table HT, Item item)
 }
 
 
-void expand_hash_table(Hash_Table HT) // check later
+void expand_hash_table(Hash_Table HT)
 {
 	int i;
 	int old_size = HT->size;

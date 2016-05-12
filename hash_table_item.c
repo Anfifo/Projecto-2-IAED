@@ -21,5 +21,5 @@ unsigned long string_hash(char *str, int size)
 	while ((c = *str++))
 	    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */ 
 	
-	return hash%(size-1);
+	return hash%(size-1); /* -1 because the size is usually a power of 2 */
 }

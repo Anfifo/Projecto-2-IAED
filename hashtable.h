@@ -8,9 +8,14 @@
 /* HT stands for hashtable */
 
 
+/* JUMP function recommended to allow more of the table to
+ * be filled, works better when hashtable's size is a power of 2 */
 #define TABLE_JUMP(A) (A*A + A)/2
-#define HASHTABLE_EXPANSION_THRESHOLD 0.5
-#define HASHTABLE_EXPANSION_VALUE 2
+
+/* tested with public examples as the combination
+ * that provided the fastest output */
+#define HASHTABLE_EXPANSION_THRESHOLD 0.7
+#define HASHTABLE_EXPANSION_VALUE 4 /*jump function works better when size is a power of 2 */
 
 
 typedef struct HashTable{
