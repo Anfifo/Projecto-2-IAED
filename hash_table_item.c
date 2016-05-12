@@ -20,6 +20,6 @@ unsigned long string_hash(char *str, int size)
 
 	while ((c = *str++))
 	    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */ 
-
-	return hash%size;
+	
+	return hash%(size-1);
 }

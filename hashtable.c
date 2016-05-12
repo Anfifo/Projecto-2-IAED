@@ -24,18 +24,18 @@ void insert_hash_table(Hash_Table HT, Item item)
 	int position = index;
 	HT->count ++;
 
-	if (HT->count > (HT->size* HASHTABLE_EXPANSION_THRESHOLD))
+	if (HT->count > (HT->size * HASHTABLE_EXPANSION_THRESHOLD))
 		expand_hash_table(HT);
 
-	while (!(IS_ITEM_NULL(HT->table[i])))
+	while (!(IS_ITEM_NULL(HT->table[position])))
 	{
 		i++;
-		printf("%d\n", i);
 		position = (index+TABLE_JUMP(i))%HT->size;
 	}
 
 	HT->table[position] = item;
 }
+
 
 
 Item search_hash_table(Hash_Table HT, Item item)
@@ -56,8 +56,9 @@ Item search_hash_table(Hash_Table HT, Item item)
 }
 
 
-void expand_hash_table(Hash_Table HT)
+void expand_hash_table(Hash_Table HT) // check later
 {
+	puts("\twuhoo expand");
 	int i;
 	int size = HT->size;
 	int count = HT->count;
@@ -80,6 +81,7 @@ Item* hash_table_to_vector(Hash_Table HT)
 {
 	Item* vector = (Item*) malloc(sizeof(Item) * HT->count);
 	int i, j = 0;
+	
 	for (i = 0; i < HT->size; i++)
 		if (!IS_ITEM_NULL(HT->table[i]))
 			vector[j++] = HT->table[i];

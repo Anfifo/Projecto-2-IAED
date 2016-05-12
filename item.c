@@ -1,14 +1,14 @@
 #include "item.h"
 
 
-static Item Most_Popular_Item = NULLITEM;
+Item Most_Popular_Item = NULLITEM;
 
 Item create_item(char* line)
 {
 	int size = strlen(line);
 
 	Item item = (Item) malloc(sizeof(struct hashtag));
-	item->tag = (char*) malloc(sizeof(char) * size);
+	item->tag = (char*) malloc(sizeof(char) * (size+1));
 
 	strcpy(item->tag, line);
 
@@ -23,6 +23,7 @@ Item create_item(char* line)
 void print_item(Item item)
 {
 	printf("%s %d\n", item->tag, item->count);
+
 }
 
 
@@ -50,7 +51,7 @@ int compare_items(Item item1, Item item2)
 
 int compare_item_count(const Item item1, const Item item2)
 {
-	return item1->count - item2->count;
+	return (item1->count - item2->count);
 }
 
 
@@ -59,7 +60,7 @@ int sorting_compare_items(const void* v_item1, const void* v_item2)
 	Item item1 = *(Item*) v_item1;
 	Item item2 = *(Item*) v_item2;
 
-	int diff = compare_item_count(item1, item2);
+	int diff = compare_item_count(item2, item1);
 
 	if (!diff)
 		return compare_items(item1, item2);
@@ -70,7 +71,7 @@ int sorting_compare_items(const void* v_item1, const void* v_item2)
 
 void sort_item_vector(Item* item_vector, int item_count)
 {
-	qsort((void*)item_vector, item_count, sizeof(Item), sorting_compare_items);
+	qsort(item_vector, item_count, sizeof(Item), sorting_compare_items);
 }
 
 Item get_most_popular_item()
@@ -87,7 +88,7 @@ void update_most_popular_item(Item item)
 	}
 
 	if (compare_item_count(item, Most_Popular_Item) == 0)
-		if (compare_items(item, Most_Popular_Item) > 0)
+		if (compare_items(item, Most_Popular_Item) < 0 )
 			Most_Popular_Item = item;
 
 	if(compare_item_count(item, Most_Popular_Item) > 0)

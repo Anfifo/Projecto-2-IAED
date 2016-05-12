@@ -21,16 +21,17 @@ void command_x();
 
 int main()
 {
-	HT = init_hash_table(128);
+	HT = init_hash_table(32);
 	char command;
 	char line[MAXSIZE];
 
 	while ((command = getchar()))
 	{
-		fgets(line, MAXSIZE, stdin);
+		getchar();
 		switch (command)
 		{
 			case 'a':
+				fgets(line, MAXSIZE, stdin);
 				command_a(line);
 				break;
 
@@ -71,12 +72,13 @@ void command_a(char *line)
 
 void command_s()
 {
-	printf("%d %d", hash_table_item_count(HT), total_hashtags_processed);
+	printf("%d %d\n", hash_table_item_count(HT), total_hashtags_processed);
 }
 
 void command_m() 
 {
-	print_item(get_most_popular_item());
+	if (total_hashtags_processed > 0)
+		print_item(get_most_popular_item());
 }
 
 void command_l()
@@ -91,7 +93,7 @@ void command_l()
 
 void command_x()
 {
-	printf("command x\n");
+	return;
 }
 
 
@@ -127,10 +129,15 @@ void process_hashtag(char *token)
 		test = search_hash_table(HT, item);
 
 		if (IS_ITEM_NULL(test))
+		{
 			insert_hash_table(HT, item);
+		}
 
 		else
-			increment_item_counter(test);		
+		{
+			increment_item_counter(test);
+		}
+		
 	}		
 }
 
@@ -140,13 +147,3 @@ void process_hashtag(char *token)
 
 
 
-/*
-void find_hashtag(char *line)
-{
-	int i;
-	for (i = 1; line[i] != '\0'; i++)
-	{
-		if (line[i-1] == ' ' && line[i] == '#')
-	}
-}
-*/
