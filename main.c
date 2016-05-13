@@ -1,3 +1,15 @@
+/*
+== = = = = = = = = = = ==
+= /////// tg034 /////// =
+== = = = = = = = = = = ==
+=  84698 Andre Fonseca	=
+=  84726 Isabel Dias	=
+== = = = = = = = = = = ==
+=  2o Projecto de IAED	=
+=   LEIC-T 2015-2016	=
+== = = = = = = = = = = == 
+*/
+
 #include <stdio.h>
 
 #include "commands.h"
