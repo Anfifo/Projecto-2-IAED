@@ -12,3 +12,6 @@ day 38126548216745
 day 38126548216745+1
   if you have a variable called position for a vector's position, don't try to use the counter 'i' instead of it
   #bug #fixed
+
+day 38126548216745+1+1
+  Commenting and Organizing the codeeeee 
