@@ -9,19 +9,19 @@
  * This Header constains all includes, defines and structs that
  * belong only to hash_table that won't need to be changed
  * in case the Item type is changed, for that check
- * hash_table_item.h / c files 
+ * hash_table_item.h / c files.
  */
 
 
 /* Recommended JUMP function, works better 
- * when table's size is a power of 2 */
+ * when table's size is a power of 2. */
 #define TABLE_JUMP(A) (A*A + A)/2
 
 /* tested with public examples as the combination
- * that provided the fastest output */
+ * that provided the fastest output. */
 #define HASHTABLE_EXPANSION_THRESHOLD 0.7
-/* keep size a power of 2 so JUMP functions works better */
 #define HASHTABLE_EXPANSION_VALUE 4 
+/* keep size a power of 2 so JUMP functions works better. */
 
 
 
@@ -39,15 +39,16 @@ typedef struct HashTable{
 /* CONSTRUCTORS */
 void init_hash_table_table(Hash_Table HT);
 /*
- * initializes the hash table's table with NULLITEMs
- * :: input: Hash_Table (Pointer to hashtable's structure) 
+ * initializes the hash table's table with NULLITEMs.
+ * :: input: Hash_Table (Pointer to hashtable's structure)
+ * :: output: no output
  */
 
 Hash_Table init_hash_table(int table_size);
 /*
- * allocates memory and initializes an hashtable's elements
+ * allocates memory and initializes an hashtable's elements.
  * :: input: int with size for a table
- * -> returns Hash_Table (Pointer to stucture) (initialized) 
+ * :: ouput: Hash_Table (Pointer to stucture) (initialized) 
  */
 
 
@@ -59,14 +60,16 @@ void insert_hash_table(Hash_Table HT, Item item);
  * insert's the item in the Hash_Table's Table 
  * and increase's Hash_Table's element counter
  * if the Hash_Table's count surpasses the EXPANSION_THRESHOLD,
- * it expands the Hash_Table's Table
+ * it expands the Hash_Table's Table.
  * :: input: Hash_Table (pointer to struct), Item;
+ * :: output: no ouput
  */
 
 void expand_hash_table(Hash_Table HT);
 /*
- * Modifies Hash_Table's Table to increase it's size
+ * Modifies Hash_Table's Table to increase it's size.
  * :: input:  Hash_Table
+ * :: output: no ouput
  */
 
 
@@ -76,16 +79,16 @@ void expand_hash_table(Hash_Table HT);
 Item search_hash_table(Hash_Table HT, Item item);
 /*
  * searches Item in Hash_Table and return's it's pointer
- * in case item isn't in table, returns NULLITEM
+ * in case item isn't in table, returns NULLITEM.
  * :: input: Hash_Table(struct_ptr), Item;
- * -> return: Found Item or NULLITEM
+ * :: output: Found Item or NULLITEM
  */
 
 int hash_table_item_count(Hash_Table HT);
 /*
- * return's Hasht_Table's item count
+ * return's Hasht_Table's item count.
  * :: input: Hash_Table
- * -> return: int (Hash_Table's item counter)
+ * :: ouput: int (Hash_Table's item counter)
  */
 
 
@@ -94,8 +97,9 @@ int hash_table_item_count(Hash_Table HT);
 /* DESTRUCTORS */
 void destroy_hash_table(Hash_Table HT);
 /*
- * Destroy's Hash_Table (Free's all the pointers) 
+ * Destroy's Hash_Table (Free's all the pointers).
  * :: input: Hash_Table
+ * :: output: no ouput
  */
 
 
@@ -104,9 +108,9 @@ void destroy_hash_table(Hash_Table HT);
 /* CONVERTER */
 Item* hash_table_to_vector(Hash_Table HT);
 /*
- * places all the non Null Items in a vector/array
+ * places all the non Null Items in a vector/array.
  * :: input: Hash_Table
- * -> return: pointer to an Item vector/array
+ * :: output: pointer to an Item vector/array
  */
 
 
