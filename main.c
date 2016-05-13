@@ -1,26 +1,15 @@
 #include <stdio.h>
-#include "hashtable.h"
-#include "item.h"
 
-#define MAXSIZE (140 + 1)
-#define HASH_TABLE_STARTING_SIZE 64 
+#include "commands.h"
+
+/* for this project, max size of a string is 140+'\0' */
+#define MAXSIZE (140 + 1) 
 /* hashtable's jump works better with size being a power of 2 */
+#define HASH_TABLE_STARTING_SIZE 64 
 
-#define NUMSEP 11
-static const char separators[] = {' ','\t',',',';','.','?','!','"','\n',':','\0'};
 
 Hash_Table HT;
-static int total_hashtags_processed = 0;
 
-void command_a(char*);
-void command_s();
-void command_m();
-void command_l();
-void command_x();
-void lowercase_transformer(char*);
-void split(char*);
-void process_hashtag(char*);
-void command_x();
 
 int main()
 {
@@ -43,7 +32,6 @@ int main()
 				break;
 
 			case 'm':
-
 				command_m();
 				break;
 
@@ -53,96 +41,14 @@ int main()
 				break;
 
 			case 'x':
-
 				command_x();
 				return 0;
-
 
 			default:
 				printf("unknown command: %c\n", command);
 		}
 	}
 	return 0;
-}
-
-
-
-void command_a(char *line)
-{
-	lowercase_transformer(line);
-	split(line);
-}
-
-void command_s()
-{
-	printf("%d %d\n", hash_table_item_count(HT), total_hashtags_processed);
-}
-
-void command_m() 
-{
-	if (total_hashtags_processed > 0)
-		print_item(get_most_popular_item());
-}
-
-void command_l()
-{
-	int item_count = hash_table_item_count(HT);
-	Item* item_vector;
-
-	item_vector = hash_table_to_vector(HT);
-	sort_item_vector(item_vector, item_count);
-	print_item_vector(item_vector, item_count);
-	free(item_vector);
-}
-
-void command_x()
-{
-	destroy_hash_table(HT);
-	return;
-}
-
-
-void lowercase_transformer(char *line)
-{
-	int i;
-
-	for (i = 0; line[i] != '\0'; i++)
-		if (line[i] >= 'A' && line[i] <= 'Z')
-			line[i] -= ('A'-'a');
-}
-
-
-void split(char *line)
-{
-	char *token = strtok(line, separators);
-
-	while(token!=NULL) 
-	{
-		process_hashtag(token);
-		token = strtok(NULL, separators);
-	}
-}
-
-void process_hashtag(char *token)
-{
-	Item item, test;
-	if (token[0] == '#')
-	{
-		total_hashtags_processed++;
-
-		item = create_item(token);
-		test = search_hash_table(HT, item);
-
-		if (IS_ITEM_NULL(test))
-			insert_hash_table(HT, item);
-
-		else
-		{
-			increment_item_counter(test);
-			destroy_item(item);
-		}
-		
-	}		
 }
 
 
