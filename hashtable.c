@@ -1,7 +1,7 @@
 #include "hashtable.h"
 
 
-/* Constructors */
+/* CONSTRUCTORS */
 void init_hash_table_table(Hash_Table HT)
 {
 	int i;
@@ -26,11 +26,12 @@ Hash_Table init_hash_table(int table_size)
 
 
 
-/* Modifiers */
+/* MODIFIERS */
 void insert_hash_table(Hash_Table HT, Item item)
 {	
 	int i = 0;
 
+	/* Checks if Table needs expansion */
 	if (HT->count > (HT->size * HASHTABLE_EXPANSION_THRESHOLD))
 		expand_hash_table(HT);
 
@@ -38,7 +39,7 @@ void insert_hash_table(Hash_Table HT, Item item)
 	int position = index;
 	HT->count ++;
 
-
+	/* In case of collisions, calculates next position */
 	while (!(IS_ITEM_NULL(HT->table[position])))
 	{
 		i++;
@@ -53,7 +54,6 @@ void expand_hash_table(Hash_Table HT)
 {
 	int i;
 	int old_size = HT->size;
-
 	Item *tempTable = HT->table;
 
 	HT->count = 0;
@@ -70,13 +70,14 @@ void expand_hash_table(Hash_Table HT)
 
 
 
-/* Selectors */
+/* SELECTORS */
 Item search_hash_table(Hash_Table HT, Item item)
 {
 	int i = 0;
 	int index = HASH(KEY(item), HT->size);
 	int position = index;
 	
+	/* checking possible positions where item could be */
 	while (!IS_ITEM_NULL(HT->table[position]))
 	{
 		if (EQUAL_ITEM(HT->table[position], item))
@@ -85,8 +86,10 @@ Item search_hash_table(Hash_Table HT, Item item)
 		i++;
 		position = (index+TABLE_JUMP(i))%HT->size;
 	}
+
 	return NULLITEM;
 }
+
 
 int hash_table_item_count(Hash_Table HT)
 {
@@ -96,7 +99,7 @@ int hash_table_item_count(Hash_Table HT)
 
 
 
-/* Destructors */
+/* DESTRUCTORS */
 void destroy_hash_table(Hash_Table HT)
 {
 	HASHTABLE_DESTROY_ITEM_VECTOR(hash_table_to_vector(HT),hash_table_item_count(HT));
@@ -105,7 +108,7 @@ void destroy_hash_table(Hash_Table HT)
 }
 
 
-/* Converters */
+/* CONVERTERS */
 Item* hash_table_to_vector(Hash_Table HT)
 {
 	Item* vector = (Item*) malloc(sizeof(Item) * HT->count);
@@ -114,5 +117,6 @@ Item* hash_table_to_vector(Hash_Table HT)
 	for (i = 0; i < HT->size; i++)
 		if (!IS_ITEM_NULL(HT->table[i]))
 			vector[j++] = HT->table[i];
+	
 	return vector;
 }
